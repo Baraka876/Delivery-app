@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Log</title>
+    <style>
+        body { background-color: #0e1117; color: white; font-family: sans-serif; padding: 20px; }
+        .card { background-color: #262730; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #444; background: #0e1117; color: white; }
+        button { background-color: #ff4b4b; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; }
+        .delivery-item { border-bottom: 1px solid #444; padding: 10px 0; }
+    </style>
+</head>
+<body>
+    <h2>📝 Log Delivery</h2>
+    <div class="card">
+        <form action="/add" method="POST">
+            <label>Client/Recipient</label>
+            <input type="text" name="client" placeholder="Enter name..." required>
+            <label>LPO Number</label>
+            <input type="text" name="lpo">
+            <label>Product Name</label>
+            <input type="text" name="product">
+            <label>Quantity</label>
+            <input type="number" step="0.01" name="quantity" value="0.00">
+            <button type="submit">Submit Delivery</button>
+        </form>
+    </div>
+
+    <h3>Recent Reports</h3>
+    <div class="card">
+        {% for d in deliveries %}
+        <div class="delivery-item">
+            <strong>{{ d.date }}</strong> - {{ d.client }}<br>
+            <small>{{ d.product_name }} (Qty: {{ d.quantity }})</small>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
